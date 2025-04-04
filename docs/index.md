@@ -1,7 +1,5 @@
 # Manchester Analysis Facility help pages
 
-Some description of the docs
-
 ## Contributing
 
 The documentation source is hosted on GitHub in
