@@ -34,7 +34,7 @@ nav:
   - Home: index.md
   - Noether Usage:
       - Basic Usage: noether_basic_usage.md
-      - Acceptable Use Policy: noether_acceptable_use.md
+      - Acceptable Use: noether_acceptable_use.md
   - Certificates: Certificates.md
   - Users: user-web-pages.md
   - FAQ: noether_faq.md
