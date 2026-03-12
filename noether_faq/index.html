@@ -718,23 +718,22 @@ Shared home directory and data areas are mounted from a <a href="https://www.glu
 and by using the <a href="https://htcondor.org/">HTCondor</a> scheduler,
 users can run batch or interactive sessions on the cluster.</p>
 <p>A2. <strong>How do I request an account on Noether?</strong></p>
-<p>Accounts have to be requested by your academic supervisor or line manager.
-Please ask them to send an email to [BLACKETT-SUPPORT] with you in CC, providing the following information about you:
-- Full name.
-- University of Manchester email address.
-- Role
-- Primary affiliation (experiment or project)
-- Expiry date of the account.
-- Required access to experimental or project data.</p>
-<p>If supervisors need accounts for multiple users,
-the admin team would appreciate it if they ask for them in one request rather than in individual requests.
-This will allow us to process them more efficiently.</p>
+<p>Accounts have to be requested by your academic supervisor or line manager, who needs a Noether account to do so; the login account and password are for Noether, not central ones.
+They need to fill in the form</p>
+<p><a href="https://vm107.hep.manchester.ac.uk/noetheruserrequest">https://vm107.hep.manchester.ac.uk/noetheruserrequest</a></p>
+<p>Access to the form (and Noether login) is only available from the
+campus network directly, via GlobalProtect, or from the CERN
+interactive system.</p>
+<p>Note that the requester warrants that the new account holder agrees to the <a href="../noether_acceptable_use/">acceptable use policy</a>.</p>
+<p>As the form says, if changes need to be made to an existing account, e.g. an MPhys student becoming a postgrad, supervisors/managers should just email Blackett support.</p>
+<p>When the account has been created we will send you temporary password on Teams, and email to say so. There will be a prompt to change that password on the first SSH login to Noether. Note that you must change it before, for instance, using the user request form or any other non-SSH access.</p>
 <p>A3. <strong>How many work-nodes does Noether have and what are their memory and CPU specifications?</strong></p>
 <p>There are presently 31 work-nodes:
 - 8 with 96 cores / 384GB RAM (4GB/core, Intel(R) Xeon(R) Gold 5220R CPU @ 2.20GHz).
 - 20 with 16 cores / 64 GB RAM (4GB/core, Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz).
-- 3 GPU nodes each with 3 Tesla V100 GPUs and 32 cores / 128 GB RAM (4GB/core, Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz).</p>
-<p>The total is therefore currently 1184 cores and 9 GPUs,
+- 1 GPU nodes each with 3 Tesla V100 GPUs and 32 cores / 128 GB RAM (4GB/core, Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz).
+- 2 GPU nodes each with 2 Tesla V100 GPUs and 32 cores / 128 GB RAM (4GB/core, Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz).</p>
+<p>The total is therefore currently 1184 cores and 7 GPUs,
 though in practice this may vary somewhat as equipment is added,
 retired or placed under maintenance. </p>
 <h3 id="section-b-storage">Section B. Storage<a class="headerlink" href="#section-b-storage" title="Permanent link">#</a></h3>
@@ -751,33 +750,37 @@ Access to additional areas will be granted upon request subjecxt to stakeholder 
 <p>B3. <strong>What are the quotas for the Home and Data areas on Noether?</strong></p>
 <p>All end-user home directories, which are to be found under <code>/gluster/home</code>,
 are assigned an initial capacity of 20GB, whereas the per-experiment data directories are assigned 10TB.
-This large datasets should not be kept in one's home directory.
+Thus large datasets should not be kept in one's home directory.
 If you run over capacity you will be unable to create new files.
 You must either free up space or request in increase to your quota via the [BLACKETT-SUPPORT] list.</p>
 <p>B4. <strong>Are the Home and Data areas backed up?</strong></p>
-<p><em>No they are not backed up</em> presently: it is therefore essential that users of Noether ensure that <em>all critical code and data</em> are
+<p><em>No they are not backed up</em> currently: it is therefore essential that users of Noether ensure that <em>all critical code and data</em> are
 regularly <code>rsync</code>-ed (or otherwise transferred) to a secure and resilient out-of-band location,
-such as an encrypted external hard-drive.</p>
+such as an encrypted external hard-drive. <!-- mention onedrive? --></p>
 <h3 id="section-c-usage">Section C. Usage<a class="headerlink" href="#section-c-usage" title="Permanent link">#</a></h3>
 <p>C1. <strong>How do I connect to Noether?</strong></p>
-<p>You must use an ssh-client to connect to Noether.
-If you use Linux or Mac OS then you may simply <code>ssh &lt;your_username&gt;@noether.hep.manchester.ac.uk</code>.
-The proceedure for resetting your initially assigned password is given in the email sent to you when your account is created.
+<p>You must use an SSH client to connect to Noether.
+If you use Linux or Mac OS then you may simply</p>
+<div class="codehilite"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_username</span><span class="o">&gt;</span><span class="nv">@noether</span><span class="p">.</span><span class="n">hep</span><span class="p">.</span><span class="n">manchester</span><span class="p">.</span><span class="n">ac</span><span class="p">.</span><span class="n">uk</span>
+</code></pre></div>
+
+<p>The proceedure for resetting your initially-assigned password is given in the email sent to you when your account is created.
 If you use Windows then it it recommended either to use PuTTy or the Windows Subsystem for Linux.</p>
 <p>C2. <strong>What is a typical workflow on Noether?</strong></p>
 <p>Most users will wish to 'start small' in their home directory under an interactive htcondor session on one of the work-nodes.
 When code is running correctly, it is then matter of writing a shell-script and htcondor submission file to automate matters.
 In this way you may scale up your workflow, conduct parameterised 'sweeps' and so on.</p>
 <p>C3. <strong>How do I start an interactive session on a work-node?</strong></p>
-<p>In brief, one issues <code>condor_submit -i</code> or simply <code>qrsh</code> to be 'teleported' to a work-node of Noether
+<p>In brief, one issues <code>condor_submit -i</code> to be 'teleported' to a work-node of Noether
 (a subset of work-nodes has been set aside for interactive sessions).
-More details are given in <a href="../noether_basic_usage/">here</a></p>
+More details are given in <a href="../noether_basic_usage/#interactive-sessions">here</a></p>
 <p>C4. <strong>How do I submit a batch job into the HTCondor scheduler queue?</strong></p>
-<p>A simple example of the use of HTCondor to run batch jobs is given <a href="../noether_basic_usage/">ibid</a></p>
+<p>A simple example of the use of HTCondor to run batch jobs is given <a href="../noether_basic_usage/">here</a></p>
 <p>C5. <strong>How do I use the GPU-enabled work-nodes?</strong></p>
-<p>That is very straightforward: for interactive sessions simply add <code>qrsh request_gpus=1</code> to your <code>qrsh</code> invocation.
-For batch jobs you may add <code>request_gpus=[1-3]</code> to either your <code>qsub</code> invocation or the corresponding <code>.sub</code> file for the job (the current batch GPU nodes have three such processors).</p>
+<p>That is very straightforward: for interactive sessions simply add <code>request_gpus=1</code> to your <code>condor_submit -i</code> invocation.
+For batch jobs you may add <code>request_gpus=[1-3]</code> to either your <code>condor_submit</code> invocation or the corresponding submission file for the job (the current batch GPU nodes have three such processors).</p>
 <h3 id="section-d-resource-limits">Section D. Resource Limits<a class="headerlink" href="#section-d-resource-limits" title="Permanent link">#</a></h3>
+<!-- Writeme! -->
 <p>D1. <strong>How do I request such and such a CPU or memory resource for the job I submit?</strong></p>
 <p>D2. <strong>How do I submit multiple parameterized copies of the same task into the queue?</strong></p>
 <p>D3. <strong>What is the maximum number of jobs I may have running on work-nodes?</strong></p>
